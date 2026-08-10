@@ -32,8 +32,8 @@
     --a1: #B4622D;   --a1-rgb: 180,98,45;
     --a2: #1F6B58;   --a2-rgb: 31,107,88;
     --serif: Georgia, 'Times New Roman', serif;
-    --sans:  system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    --mono:  var(--sans);
+    --sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --mono: ui-monospace, 'Cascadia Code', Consolas, 'Courier New', monospace;
 
     /* ---- DERIVED TOKENS. A skin should not need to touch these. ----
        They exist because the engine used to hardcode fourteen literal
@@ -168,9 +168,9 @@
   --a1: #2B3034;  --a1-rgb: 43,48,52;
   --a2: #B23F60;  --a2-rgb: 178,63,96;
   /* type: a grotesque carries the history, a serif is kept for documents only */
-  --sans:  'Archivo', 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
-  --serif: 'Source Serif 4', 'Charter', Georgia, serif;
-  --mono:  'IBM Plex Mono', ui-monospace, Consolas, monospace;
+  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --serif: Georgia, 'Times New Roman', serif;
+  --mono: ui-monospace, 'Cascadia Code', Consolas, 'Courier New', monospace;
 }
 
 /* Ground: a faint horizontal lane rule. Angola rules vertically, so this reads
@@ -582,6 +582,32 @@ body.alt .figure img { filter: brightness(0.9) contrast(1.02); }
   .srcpeek .peek-body { padding: 0 0.85rem 0.85rem; font-size: 0.94rem; line-height: 1.62; border-top: 1px solid var(--rule); margin: 0 0.85rem; padding-left: 0; padding-right: 0; }
   .srcpeek .peek-body p { margin: 0.7rem 0 0; }
 
+  /* v2.1 multi-source reopen. Tabs plus a swipeable track, so every source in
+     the file is reachable from any question. Absent on a single-source lesson,
+     which renders exactly as it did before. */
+  .srcpeek.multi .peek-body { padding-bottom: 0.5rem; }
+  .peek-tabs { display: flex; gap: 0.4rem; overflow-x: auto; padding: 0.7rem 0 0.6rem;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .peek-tabs::-webkit-scrollbar { display: none; }
+  .peek-tab { flex: 0 0 auto; min-height: 40px; padding: 0.45rem 0.85rem;
+    font-family: var(--sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; cursor: pointer;
+    background: transparent; color: var(--muted);
+    border: 1px solid var(--rule); border-radius: 0; }
+  .peek-tab.on { background: var(--a1); color: var(--on-a1); border-color: var(--a1); }
+  .peek-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none; gap: 0; }
+  .peek-track::-webkit-scrollbar { display: none; }
+  .peek-slide { flex: 0 0 100%; scroll-snap-align: start; padding-right: 0.1rem; }
+  .peek-slide .peek-attr { font-family: var(--sans); font-size: 0.66rem; font-weight: 700;
+    line-height: 1.45; color: var(--muted); padding-bottom: 0.5rem; margin-bottom: 0.6rem;
+    border-bottom: 1px solid var(--rule); }
+  .peek-slide p { margin: 0.7rem 0 0; }
+  .srcpeek.multi::after { content: "Swipe, or tap a source above."; display: block;
+    font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.06em; color: var(--muted);
+    padding: 0.55rem 0 0.2rem; }
+  .srcpeek.multi:not([open])::after { display: none; }
+
   .marks { font-family: var(--mono, var(--sans)); font-size: 0.68rem; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--a1); font-weight: 700; margin-left: 0.7rem; }
   .q-meta { margin-bottom: 0.9rem; }
@@ -671,7 +697,7 @@ const COVER = {
   "title": "Putting It Together",
   "lines": [
     "Everything up to here was practice.",
-    "This one is built to the real exam standard.",
+    "This one is adapted from an exam question.",
     "Twenty marks, and a paragraph at the end."
   ],
   "begin": "Begin Lesson 5",
@@ -685,7 +711,7 @@ const RESULTS = {
   "done": {
     "label": "Unit complete",
     "title": "Putting It Together",
-    "text": "Tap Done, then sit What Stuck and compare it with the score you wrote down at the start."
+    "text": "Tap Done to continue to What Stuck."
   },
   "footer": "Next: What Stuck, the same eighteen facts asked from the other direction.",
   "bands": {
@@ -701,19 +727,19 @@ const FLOW = [
   {
     "type": "content",
     "tag": "How this works",
-    "html": "<h2>This one is real</h2><p>Every question below is at the real NSC standard and at its real mark allocation. Your answers are checked against the way the paper is marked.</p><p>The allocation is printed on each question. A (2 x 2) wants two points, each worth two marks, so two sentences and not one.</p><p>One thing is not real, and you should know which. The extract you are reading is not the original extract, because that one is still in copyright and cannot be reproduced outside an exam paper. It has been replaced with a United States government document that carries the same evidence the official answers ask for.</p>",
-    "remember": "The wording is ours, but the allocations and the marking match the real exam standard, and the source has been swapped for one that can be published.",
+    "html": "<h2>How this run is built</h2><p>Every question below is built to the shape of a full source question, at its real mark allocation. Your answers are checked against an answer standard written against the published rubric.</p><p>The allocation is printed on each question. A (2 x 2) wants two points, each worth two marks, so two sentences and not one.</p><p>One thing is worth knowing. The extract you are reading is not the one the paper printed, because that one is still in copyright and cannot be reproduced outside an examination. It has been replaced with a United States government document that carries the same evidence the answer standard asks for.</p>",
+    "remember": "The questions and the allocations follow the shape of the paper. The source has been swapped for one that can be published.",
     "terms": [
       {
-        "term": "Marking guidelines",
-        "def": "The official document setting out what a correct answer contains. You will see this name on any past paper you download. Every answer here is checked against it."
+        "term": "Answer standard",
+        "def": "The statement of what a correct answer contains. Every answer here is checked against it."
       }
     ]
   },
   {
     "type": "content",
     "tag": "The question",
-    "html": "<h2>What challenges were encountered by the civil rights protestors who participated in the Freedom Rides in the USA in the 1960s?</h2><p>That is the lead question, and it is the question the final paragraph has to answer.</p><p>Hold it in mind while you read. Every sub-question below is feeding you evidence for that paragraph, and the paragraph is worth eight of the twenty marks.</p>",
+    "html": "<h2>What challenges were encountered by the civil rights protestors who participated in the Freedom Rides in the USA in the 1960s?</h2><p>That is the question this whole run is feeding, and the final paragraph has to answer it.</p><p>Hold it in mind while you read. Every sub-question below is feeding you evidence for that paragraph, and the paragraph is worth eight of the twenty marks.</p>",
     "terms": [
       {
         "term": "Paragraph question",
@@ -727,7 +753,7 @@ const FLOW = [
     "sourceLabel": "Source A",
     "html": "<h2>Read it twice before you start</h2><p>Once for what happened, and once for where the authorities are in it.</p>",
     "source": {
-      "attr": "Source A: from Proclamation 9566, Establishment of the Freedom Riders National Monument, issued by President Barack Obama on 12 January 2017. A United States government work. This source replaces a copyrighted extract from the original addendum.",
+      "attr": "Source A: from Proclamation 9566, Establishment of the Freedom Riders National Monument, issued by President Barack Obama on 12 January 2017. A United States government work. This source replaces the extract printed in the November 2023 addendum, which is in copyright.",
       "body": "<p>The purpose of the 1961 Freedom Rides was to test if bus station facilities in the Deep South were complying with U.S. Supreme Court decisions. Brown v. Board of Education of Topeka (1954) had reversed the infamous 'separate but equal' doctrine in public education, and Morgan v. Virginia (1946) and Boynton v. Virginia (1960) had struck down Virginia laws compelling segregation in interstate travel &hellip;</p><p>There, a segregationist mob, including members of the Ku Klux Klan, violently attacked the Freedom Riders &hellip; one member of the mob threw a flaming bundle of rags through one of the windows that caused an explosion seconds later. The Freedom Riders struggled to escape as members of the mob attempted to trap them inside the burning bus. When they finally broke free, they received little aid for their injuries. Later that day, deacons dispatched by Reverend Fred L. Shuttlesworth of Birmingham's Bethel Baptist Church rescued the Freedom Riders from the hostile mob at Anniston Hospital and drove them to Birmingham for shelter at the church.</p><p>&hellip; the police department under the charge of Commissioner of Public Safety T. Eugene 'Bull' Connor was nowhere to be seen. After fifteen minutes of violence, the mob retreated and the police appeared.</p><p>Media coverage of the Freedom Rides inspired many people to take action &hellip; The Freedom Rides forced the Federal Government to take steps to ban segregation in interstate bus travel. On May 29, 1961, Attorney General Kennedy petitioned the Interstate Commerce Commission (ICC) to issue regulations banning segregation, and the ICC subsequently decreed that by November 1, 1961, bus carriers and terminals serving interstate travel had to be integrated.</p>",
       "toggle": "Three things worth naming before you answer. Complying means obeying, and the whole purpose of the Rides sits on that one word: the rulings existed and nobody was following them. Rescued from the hostile mob at Anniston Hospital tells you the mob followed them to the hospital and that nobody there dealt with it, which is why church deacons had to drive from another city. And a proclamation is a formal presidential order, written here to create a national monument, so it is written to honour rather than to weigh.",
       "toggleLabel": "What does this actually mean?"
@@ -747,7 +773,7 @@ const FLOW = [
     "type": "question",
     "level": "Extract",
     "marks": "(1 x 2)  2 marks",
-    "q": "3.1.1  According to Source A, how did the Freedom Riders set out to challenge racial discrimination in the USA in 1961?",
+    "q": "3.1.1  How, according to Source A, did the Freedom Riders set out to challenge racial discrimination in the USA in 1961?",
     "options": [
       "By testing whether bus station facilities were obeying Supreme Court decisions",
       "By asking the Supreme Court to rule against segregation in interstate travel",
@@ -755,14 +781,14 @@ const FLOW = [
       "By petitioning the federal government to send troops into the Deep South"
     ],
     "correct": 0,
-    "explanation": "The marking wants the sentence about testing compliance, and Source A gives you it outright. Option {opt1} is the trap that costs most marks here. It reverses the point, because the rulings existed and the Rides checked whether anyone obeyed them. Write that and you have contradicted the opening line of the source.",
+    "explanation": "The expected answer is the sentence about testing compliance, and Source A gives you it outright. Option {opt1} is the trap that costs most marks here. It reverses the point, because the rulings existed and the Rides checked whether anyone obeyed them. Write that and you have contradicted the opening line of the source.",
     "part": "The Rides were a test of rulings that already existed"
   },
   {
     "type": "question",
     "level": "Extract",
     "marks": "(1 x 2)  2 marks",
-    "q": "3.1.2  In your own words, define the term constitution.",
+    "q": "3.1.2  Define the term constitution in your own words.",
     "options": [
       "The document setting out the basic laws and rights of a country",
       "A law passed by a parliament to deal with one particular issue",
@@ -770,7 +796,7 @@ const FLOW = [
       "An agreement between two states about how they will treat each other"
     ],
     "correct": 0,
-    "explanation": "This is two marks for a definition, so give the full idea rather than a fragment. The marking accepts the basic laws of a country, or a framework of principles, or an outline of rights. Option {opt2} tempts you because every ruling in this unit came from a court. A court applies the constitution. The two are not the same thing.",
+    "explanation": "This is two marks for a definition, so give the full idea rather than a fragment. The expected answer is the basic laws of a country, or a framework of principles, or an outline of rights. Option {opt2} tempts you because every ruling in this unit came from a court. A court applies the constitution. The two are not the same thing.",
     "noSource": true,
     "part": "The rulings rested on the constitution, not on goodwill"
   },
@@ -778,7 +804,7 @@ const FLOW = [
     "type": "question",
     "level": "Interpret",
     "marks": "(2 x 2)  4 marks",
-    "q": "3.1.4  Using Source A and your own knowledge, explain what led President John F Kennedy to act against segregation.",
+    "q": "3.1.4  Using Source A and your own knowledge, explain why President John F Kennedy took action on desegregation.",
     "options": [
       "The publicity forced him, and the violence had become a national issue",
       "Congress had passed a law obliging the President to act by that date",
@@ -793,7 +819,7 @@ const FLOW = [
     "type": "question",
     "level": "Extract",
     "marks": "(2 x 1)  2 marks",
-    "q": "3.4.3  From Source A, quote TWO pieces of evidence that the injured Freedom Riders were not looked after at the hospital.",
+    "q": "3.4.3  Quote TWO pieces of evidence from Source A indicating that the injured Freedom Riders were not cared for at the hospital.",
     "options": [
       "They received little aid for their injuries, and deacons rescued them",
       "The mob attempted to trap them inside the bus as it was burning",
@@ -808,7 +834,7 @@ const FLOW = [
     "type": "question",
     "level": "Interpret",
     "marks": "(1 x 2)  2 marks",
-    "q": "3.4.4  In the context of the state of Alabama, explain the term segregationist.",
+    "q": "3.4.4  Explain the term segregationist in the context of the state of Alabama.",
     "options": [
       "Someone who supported keeping black and white Americans apart by law",
       "Someone who believed each American state should govern its own affairs",
@@ -822,7 +848,7 @@ const FLOW = [
   {
     "type": "content",
     "tag": "The finale",
-    "html": "<h2>3.6  The paragraph question. Eight marks.</h2><p><em>Using the information in the relevant sources and your own knowledge, write a paragraph of about EIGHT lines (about 80 words) explaining the difficulties faced by the civil rights protestors who took part in the Freedom Rides in the USA in the 1960s.</em></p><p>Eight of the twenty marks are here, and this is the only question in the run that requires your own knowledge. Quote the source alone and you cap out in the middle band.</p><p>The next three questions build it with you, one move at a time.</p>",
+    "html": "<h2>3.6  The paragraph question. Eight marks.</h2><p><em>Using the information in the relevant sources and your own knowledge, write a paragraph of about EIGHT lines (about 80 words) explaining the challenges that were encountered by the civil rights protestors who participated in the Freedom Rides in the USA in the 1960s.</em></p><p>Eight of the twenty marks are here, and this is the only question in the run that requires your own knowledge. Quote the source alone and you cap out in the middle band.</p><p>The next three questions build it with you, one move at a time.</p>",
     "remember": "Sources AND own knowledge. A paragraph built only from the extract cannot reach the top band, however well written it is.",
     "terms": [
       {
@@ -857,7 +883,7 @@ const FLOW = [
       "A mob threw a flaming bundle of rags through a bus window"
     ],
     "correct": 0,
-    "explanation": "Own knowledge means a relevant fact the source does not contain, and the marking lists this one. Options {opt1}, {opt2} and {opt3} are all in Source A, which is exactly why they feel safe to write. Repeat the source and label it your own knowledge and you have added nothing, because the extract is right there.",
+    "explanation": "Own knowledge means a relevant fact the source does not contain, and this is one of them. Options {opt1}, {opt2} and {opt3} are all in Source A, which is exactly why they feel safe to write. Repeat the source and label it your own knowledge and you have added nothing, because the extract is right there.",
     "noSource": true
   },
   {
@@ -925,12 +951,12 @@ const FLOW = [
   {
     "type": "content",
     "tag": "Before you go",
-    "html": "<h2>Two things to do</h2><p>Take Knowledge Check 2. It asks the same eighteen facts as the check you did before Lesson 1, approached from the other side, so it measures what stuck rather than what you recognised.</p><p>Then sit this run again with a clock. Twenty marks is about twenty-four minutes in the exam. Doing it once slowly teaches the method; doing it once fast tells you whether you have it.</p>"
+    "html": "<h2>Two things to do</h2><p>Take Knowledge Check 2. It asks the same eighteen facts as the check you did before Lesson 1, approached from the other side, so it measures what stuck rather than what you recognised.</p><p>Then sit this run again with a clock. Twenty marks is about twenty-four minutes at the pace the paper expects. Doing it once slowly teaches the method; doing it once fast tells you whether you have it.</p>"
   },
   {
     "type": "content",
     "tag": "What this run leaves out",
-    "html": "<h2>Being straight with you about this run</h2><p>The full source question is fifty marks and this run is twenty. Two things were cut, and you should know what they were.</p><p>The photograph question and the comparison between two sources are both missing, because they depend on extracts and a newspaper front page that cannot be published outside an exam paper. Your comparison practice is in Lessons 2 and 4 instead, and your reliability practice is in Lesson 3.</p><p>This run is also shorter than it should be, for the same reason. Everything in it is real: the questions, the allocations and the official answers. What could not be reproduced was left out rather than invented.</p>"
+    "html": "<h2>Being straight with you about this run</h2><p>A full source question is fifty marks and this run is twenty. Two things were cut, and you should know what they were.</p><p>The photograph question and the comparison between two sources are both missing, because they depend on extracts and a newspaper front page that cannot be published outside an examination. Your comparison practice is in Lessons 2 and 4 instead, and your reliability practice is in Lesson 3.</p><p>This run is also shorter than it should be, for the same reason. Everything in it follows the paper: the questions, the allocations and the answer standard. What could not be reproduced was left out rather than invented.</p>"
   },
   {
     "type": "content",
@@ -1113,24 +1139,78 @@ function renderStat(item){
 
 // Reopen strip: shown on a question that follows a source, so the learner
 // never has to tap Back to reread the extract.
+//
+// v2.1. Was: the strip offered LAST_SOURCE only. That is correct for a lesson
+// built on one source and wrong for a capstone, where the paragraph question
+// asks for all of them and a learner on the closing screens could reach only
+// the most recent. Now every source seen so far in the file is reachable: a row
+// of tabs, and a swipeable track underneath. One source renders exactly as
+// before, so nothing in the existing corpus changes.
 function sourcePeek(item){
   if(item.noSource) return "";
-  const s = item.sourceRef || LAST_SOURCE;
-  if(!s || !s.body) return "";
-  return `<details class="srcpeek"><summary>
+  if(item.sourceRef && item.sourceRef.body){
+    return peekShell([item.sourceRef]);
+  }
+  const seen = SOURCES_SEEN.filter(s => s && s.body);
+  if(!seen.length) return "";
+  return peekShell(seen);
+}
+
+function peekShell(list){
+  const many = list.length > 1;
+  const cue = many
+    ? `Tap to read the ${list.length} sources again`
+    : `Tap to read ${esc(list[0].label)} again`;
+  const who = many
+    ? list.map(s=>esc(s.label)).join(" &middot; ")
+    : esc(stripTags(list[0].attr)).slice(0,90);
+  const tabs = many
+    ? `<div class="peek-tabs" role="tablist">${list.map((s,i)=>
+        `<button class="peek-tab${i===list.length-1?" on":""}" data-peek="${i}" role="tab">${esc(s.label)}</button>`).join("")}</div>`
+    : "";
+  const track = `<div class="peek-track" data-peek-track>${list.map(s=>
+      `<div class="peek-slide"><div class="peek-attr">${s.attr}</div>${s.body}</div>`).join("")}</div>`;
+  return `<details class="srcpeek${many?" multi":""}"><summary>
       <svg class="chev" width="11" height="13" viewBox="0 0 11 13" fill="none" aria-hidden="true"><path d="M2 1.5 L8.5 6.5 L2 11.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span class="peek-cue">Tap to read ${esc(s.label)} again<span class="peek-who">${esc(stripTags(s.attr)).slice(0,90)}</span></span>
-    </summary><div class="peek-body">${s.body}</div></details>`;
+      <span class="peek-cue">${cue}<span class="peek-who">${who}</span></span>
+    </summary><div class="peek-body">${tabs}${track}</div></details>`;
+}
+
+// Tabs scroll the track; swiping the track updates the tabs. Both work alone,
+// so a learner who never notices the tabs can still swipe, and the other way round.
+function bindPeek(){
+  stage.querySelectorAll(".srcpeek.multi").forEach(d=>{
+    const track = d.querySelector("[data-peek-track]");
+    const tabs  = Array.from(d.querySelectorAll(".peek-tab"));
+    if(!track || !tabs.length) return;
+    const go = i => track.scrollTo({ left: i * track.clientWidth, behavior: "smooth" });
+    tabs.forEach(t => t.addEventListener("click", () => go(parseInt(t.dataset.peek,10))));
+    let tick = null;
+    track.addEventListener("scroll", () => {
+      clearTimeout(tick);
+      tick = setTimeout(() => {
+        const i = Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+        tabs.forEach((t,n) => t.classList.toggle("on", n === i));
+      }, 60);
+    });
+    // open on the source the learner saw last, which is the one they were reading
+    d.addEventListener("toggle", () => {
+      if(d.open) requestAnimationFrame(() => { track.scrollLeft = (tabs.length-1) * track.clientWidth; });
+    });
+  });
 }
 function stripTags(h){ return String(h||"").replace(/<[^>]+>/g,""); }
 
 // ============ SOURCE ============
-// The most recent source rendered, so any later question can reopen it in place.
+// Every source rendered so far, in order, so any later question can reopen all
+// of them. LAST_SOURCE is kept as the final entry for anything still reading it.
+let SOURCES_SEEN = [];
 let LAST_SOURCE = null;
 
 function renderSource(item){
   const s=item.source;
   LAST_SOURCE = { label: item.sourceLabel || item.tag || "the source", attr: s.attr, body: s.body };
+  if(!SOURCES_SEEN.some(x => x.label === LAST_SOURCE.label)) SOURCES_SEEN.push(LAST_SOURCE);
   stage.innerHTML = `
     <div class="card">
       ${item.tag?`<div class="stage-tag">${esc(item.tag)}</div>`:""}
@@ -1364,6 +1444,7 @@ function syncNavCarousel(){
 }
 
 function bindToggles(){
+  bindPeek();
   stage.querySelectorAll("[data-toggle]").forEach(b=>b.addEventListener("click",()=>{
     b.nextElementSibling.classList.toggle("open");
   }));
@@ -1418,7 +1499,7 @@ function showResults(){
     const back=document.createElement("div");
     back.className="pop-back";
     const D = RESULTS.done||{};
-    back.innerHTML=`<div class="pop"><div class="pop-label">${esc(D.label||"Lesson complete")}</div>${D.title?`<h3 style="margin:.4rem 0 .2rem;font-size:1.05rem;">${esc(D.title)}</h3>`:""}<div class="pop-text">${esc(D.text||"Tap Done to continue.")}</div><button class="pop-btn" id="fin-ok">Got it</button></div>`;
+    back.innerHTML=`<div class="pop"><div class="pop-label">${esc(D.label||"Lesson complete")}</div>${D.title?`<h3 style="margin:.4rem 0 .2rem;font-size:1.05rem;">${esc(D.title)}</h3>`:""}<div class="pop-text">${esc(D.text||"Tap Done to continue to the next lesson.")}</div><button class="pop-btn" id="fin-ok">Done</button></div>`;
     document.body.appendChild(back);
     document.getElementById("fin-ok").addEventListener("click",()=>back.remove());
   });
