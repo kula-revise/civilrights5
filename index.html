@@ -647,9 +647,227 @@ body.dark .figure img { filter: brightness(0.9) contrast(1.02); }
   .results-actions button { flex: 1; }
   .hidden { display: none !important; }
 
+
+/* ============================================================
+   EARNED STATES READ GREEN
+   Applied identically across this strand, and matching the
+   Cold War and Angola builds.
+
+   This skin gives rose the job of "anything the learner
+   earned". Green now takes the narrow part of that job, the
+   correct answer itself, and rose keeps the rest: the marks,
+   the key facts, the running summary, the primary button.
+   Green is a new token rather than a repointed --a2, because
+   repointing would turn the whole strand green and lose the
+   graphite against rose the identity is built on. Rose sits at
+   hue 343 and the green at 132, so there is no risk of the two
+   reading as one colour.
+
+   The correct option fills solid so it reads as the answer from
+   across the room. The asymmetry is deliberate: the option you
+   got right is loud, the one you picked and got wrong stays a
+   quiet tint with a firm border, because a learner who is
+   already wrong does not need it shouted at them.
+
+   Measured on this skin's own grounds:
+     light  paper text on #2A6335      6.74 : 1
+            the fill against the page  5.96 : 1
+     dark   ink text on #93D98A       10.52 : 1
+   Colour is never the only signal: the tick and the cross carry
+   the state too.
+   ============================================================ */
+:root { --ok: #2A6335; --ok-rgb: 42,99,53; --on-ok: #FAF8F3; }
+body.dark { --ok: #93D98A; --ok-rgb: 147,217,138; --on-ok: #17191B; }
+
+.option.correct, .option-btn.correct,
+body.dark .option.correct, body.dark .option-btn.correct {
+  background: var(--ok) !important;
+  border: 2px solid var(--ok) !important;
+  box-shadow: 5px 5px 0 rgba(var(--ok-rgb),0.30) !important;
+  color: var(--on-ok) !important;
+}
+.option.correct .opt-text, .option-btn.correct .opt-text,
+.option.correct .opt-letter, .option-btn.correct .opt-letter,
+.option.correct .opt-mark, .option-btn.correct .opt-mark,
+body.dark .option.correct .opt-text, body.dark .option-btn.correct .opt-text,
+body.dark .option.correct .opt-letter, body.dark .option-btn.correct .opt-letter,
+body.dark .option.correct .opt-mark, body.dark .option-btn.correct .opt-mark {
+  color: var(--on-ok) !important;
+}
+.option.correct .opt-letter, .option-btn.correct .opt-letter { opacity: 0.85; }
+
+.option.wrong, .option-btn.wrong {
+  background: var(--no-bg) !important;
+  border: 2px solid var(--a2) !important;
+  box-shadow: none !important;
+}
+.option.wrong .opt-letter, .option.wrong .opt-mark,
+.option-btn.wrong .opt-letter, .option-btn.wrong .opt-mark { color: var(--a2) !important; }
+
+.inter-item.ok, body.dark .inter-item.ok {
+  background: var(--ok) !important;
+  border: 2px solid var(--ok) !important;
+  color: var(--on-ok) !important;
+}
+.inter-item.ok span, .inter-item.ok .rank,
+body.dark .inter-item.ok span, body.dark .inter-item.ok .rank { color: var(--on-ok) !important; }
+.inter-item.ok .rank { opacity: 0.85; }
+.bd-fill { background: var(--ok) !important; }
+
+/* ---- Correctness reads on the sort and the order --------------
+   Both used to change only by a pale tint after Check, close
+   enough to the placed state that the screen looked unchanged.
+   -------------------------------------------------------------- */
+.inter-item { justify-content: flex-start; }
+.inter-body { flex: 1 1 auto; }
+.inter-mark { font-weight: 700; font-size: 1.1rem; margin-left: 0.6rem; flex: 0 0 auto; }
+.inter-item.ok .inter-mark { color: var(--on-ok) !important; }
+.inter-item.no {
+  background: var(--no-bg) !important;
+  border: 2px solid var(--a2) !important;
+}
+.inter-item.no .inter-mark, .inter-item.no .rank { color: var(--a2) !important; }
+.inter-should {
+  display: block; margin-top: 0.3rem;
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--a2);
+}
+
+/* A dashed border is the web's convention for a drop target and
+   there is no drag and drop anywhere in the page. */
+.sort-col { border-style: solid !important; }
+
+/* Sort columns stack on a phone. At 390px a two column grid gives
+   each column about 110px, and a ten word claim wraps to one word
+   a line. */
+@media (max-width: 560px) {
+  .sort-cols { grid-template-columns: 1fr; gap: 0.7rem; }
+  .sort-col { min-height: 3rem; }
+}
+
+/* An inline label that does nothing loses the accent, so the one
+   coloured thing a learner can open still looks openable. */
+.card p > strong:first-child, .source p > strong:first-child { color: var(--ink) !important; }
+.kt-term > summary {
+  color: var(--a2);
+  text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px;
+}
+
+/* (2 x 2) is exam notation and nothing in the file explains it. */
+.marks-gloss {
+  font-family: var(--sans); font-size: 0.74rem; line-height: 1.5;
+  color: var(--fade); margin: -0.3rem 0 0.9rem;
+  border-left: 2px solid var(--hair-strong); padding-left: 0.6rem;
+}
+.score-note {
+  font-family: var(--sans); font-size: 0.8rem; line-height: 1.55;
+  color: var(--fade); text-align: center; margin: -0.4rem 0 1.3rem;
+}
+/* The reopen preview shows a sentence of the source now, not a
+   bibliography line, so it stops being uppercased. */
+.peek-who { text-transform: none !important; letter-spacing: 0 !important; }
+
+/* ---- THE TIME RAIL -------------------------------------------
+   A hook line may carry a marker, so a run of days reads as a run
+   of days rather than as a paragraph broken up. Backwards
+   compatible: a plain string line renders as it always did. The
+   gutter is sized for two short words.
+   ------------------------------------------------------------ */
+.story-line.marked {
+  display: grid; grid-template-columns: 5.2rem 1fr; gap: 0.7rem;
+  align-items: baseline; margin-bottom: 1.15rem;
+}
+.tl-mark {
+  font-family: var(--sans); font-size: 0.58rem; font-weight: 700;
+  letter-spacing: 0.10em; text-transform: uppercase; color: var(--a2);
+  border-left: 2px solid var(--a2); padding-left: 0.5rem; line-height: 1.5;
+}
+.tl-text { display: block; }
+.story-line.marked + .story-line:not(.marked) { margin-top: 1.8rem; }
+.story-line.marked.last {
+  color: var(--clay) !important; font-weight: 400 !important; font-style: normal !important;
+}
+.story-line.marked.last::before { display: none !important; }
+.story-line.last { font-style: normal !important; }
+@media (max-width: 400px) {
+  .story-line.marked { grid-template-columns: 4.8rem 1fr; gap: 0.6rem; }
+}
+
+
+/* ---- Multi source reopen strip, ported in so a question about a
+   later source can still reach the earlier one. ---- */
+  .srcpeek { border: 1px solid var(--clay); background: rgba(var(--a1-rgb),0.07); margin: 0 0 1rem; }
+  .srcpeek summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 0.7rem; padding: 0.8rem 0.85rem; color: var(--clay); }
+  .srcpeek summary::-webkit-details-marker { display: none; }
+  .srcpeek .chev { flex: 0 0 auto; transition: transform 0.18s ease; }
+  .srcpeek[open] .chev { transform: rotate(90deg); }
+  .srcpeek .peek-cue { font-family: var(--sans); font-size: 0.92rem; font-weight: 700; line-height: 1.25; color: var(--ink); }
+  .srcpeek .peek-who { display: block; font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.09em; text-transform: uppercase; font-weight: 400; color: var(--muted); margin-top: 0.25rem; }
+  .srcpeek[open] .peek-cue { color: var(--muted); }
+  .srcpeek .peek-body { padding: 0 0.85rem 0.85rem; font-size: 0.94rem; line-height: 1.62; border-top: 1px solid var(--rule); margin: 0 0.85rem; padding-left: 0; padding-right: 0; }
+  .srcpeek .peek-body p { margin: 0.7rem 0 0; }
+
+  /* v2.1 multi-source reopen. Tabs plus a swipeable track, so every source in
+     the file is reachable from any question. Absent on a single-source lesson,
+     which renders exactly as it did before. */
+  .srcpeek.multi .peek-body { padding-bottom: 0.5rem; }
+  .peek-tabs { display: flex; gap: 0.4rem; overflow-x: auto; padding: 0.7rem 0 0.6rem;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .peek-tabs::-webkit-scrollbar { display: none; }
+  .peek-tab { flex: 0 0 auto; min-height: 40px; padding: 0.45rem 0.85rem;
+    font-family: var(--sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; cursor: pointer;
+    background: transparent; color: var(--muted);
+    border: 1px solid var(--rule); border-radius: 0; }
+  .peek-tab.on { background: var(--a1); color: var(--on-a1); border-color: var(--a1); }
+  .peek-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none; gap: 0; }
+  .peek-track::-webkit-scrollbar { display: none; }
+  .peek-slide { flex: 0 0 100%; scroll-snap-align: start; padding-right: 0.1rem; }
+  .peek-slide .peek-attr { font-family: var(--sans); font-size: 0.66rem; font-weight: 700;
+    line-height: 1.45; color: var(--muted); padding-bottom: 0.5rem; margin-bottom: 0.6rem;
+    border-bottom: 1px solid var(--rule); }
+  .peek-slide p { margin: 0.7rem 0 0; }
+  .srcpeek.multi::after { content: "Swipe, or choose a source above."; display: block;
+    font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.06em; color: var(--muted);
+    padding: 0.55rem 0 0.2rem; }
+  .srcpeek.multi:not([open])::after { display: none; }
+
+  .marks { font-family: var(--mono, var(--sans)); font-size: 0.68rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--a1); font-weight: 700; margin-left: 0.7rem; }
+  .q-meta { margin-bottom: 0.9rem; }
+
+  /* order + sort interactions */
+  .inter { margin: 0.4rem 0 1rem; }
+  .inter-pool { display: flex; flex-direction: column; gap: 0.5rem; }
+  .inter-item { font-family: var(--serif); text-align: left; padding: 0.85rem 1rem; background: var(--sand); border: 1px solid var(--hair); cursor: pointer; font-size: 0.97rem; line-height: 1.5; color: var(--ink); display: flex; gap: 0.7rem; align-items: baseline; }
+  .inter-item:hover:not(:disabled) { border-color: var(--a1); background: var(--cut); }
+  .inter-item .rank { font-family: var(--sans); font-weight: 800; color: var(--a1); min-width: 1.4rem; }
+  .inter-placed { background: var(--cut); border-color: var(--a2); }
+  .inter-item.ok { background: var(--ok-bg); border-color: var(--a2); }
+  .inter-item.no { background: var(--no-bg); border-color: var(--clay); }
+  .sort-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .sort-col { background: var(--inset); border: 1px dashed var(--hair-strong); padding: 0.7rem; min-height: 4rem; }
+  .sort-col h4 { font-family: var(--sans); font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clay); font-weight: 700; margin-bottom: 0.6rem; text-align: center; }
+  .sort-btns { display: flex; gap: 0.4rem; margin-top: 0.5rem; }
+  .sort-place { font-family: var(--sans); flex: 1; font-size: 0.78rem; font-weight: 700; padding: 0.4rem; background: var(--paper); border: 1px solid var(--hair-strong); cursor: pointer; color: var(--ink); }
+
+  /* Running summary */
+
+  /* Popup */
+
+  /* Nav */
+  .nav { display: flex; justify-content: space-between; gap: 0.8rem; margin-top: 1rem; }
+  .btn-secondary { font-family: var(--sans); padding: 0.8rem 1.2rem; background: transparent; border: 1px solid var(--hair-strong); color: var(--ink); font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+  .btn-secondary:hover:not(:disabled) { background: var(--paper); }
+  .btn-primary { font-family: var(--sans); padding: 0.85rem 1.5rem; background: var(--a2); border: none; color: var(--on-a2); font-size: 0.95rem; cursor: pointer; font-weight: 700; }
+  .btn-primary:hover:not(:disabled) { background: var(--a2-deep); }
+  .btn-primary:disabled { opacity: 0.34; cursor: not-allowed; }
+
+
 </style>
 </head>
-<body>
+<body class="dark">
 <div class="container">
   <div class="top-bar hidden" id="top-bar">
     <div class="top-meta"><span id="lesson-tag">Kula Revise &middot; Grade 12 &middot; Civil Rights</span><span class="top-count" id="step-count"></span></div>
@@ -930,7 +1148,7 @@ const FLOW = [
   {
     "type": "content",
     "tag": "Beyond the exam",
-    "html": "<h2>The habit, not the dates</h2><p>Four things you did in this unit have nothing to do with 1961. You asked where an account came from. You held two accounts against each other. You read an absence as evidence. You checked what a source was written to do before you decided what it could tell you.</p><p>Those four questions work on a news report, a company statement, a court judgement or a message from someone who wants something from you.</p><p>The history is the training ground. The questions are the thing you keep.</p>"
+    "html": "<h2>The habit, not the dates</h2><p>Four things you did in this unit have nothing to do with 1961. You asked where an account came from. You held two accounts against each other. You read an absence as evidence. You checked what a source was written to do before you decided what it could tell you.</p><p>Those four questions work on a news report, a company statement, a court judgement or a message from someone who wants something from you.</p><p>You practised those questions on 1961 because that is what the exam asks about. You will use them on things that have nothing to do with it.</p>"
   },
   {
     "type": "content",
@@ -1035,10 +1253,13 @@ function firstContentIdx(){
 function renderStory(item){
   const lines = item.lines.map((l,i)=>{
     const last = i===item.lines.length-1 ? " last" : "";
-    return `<div class="story-line${last}">${esc(l)}</div>`;
+    const o = (typeof l === "string") ? { text: l } : l;
+    const body = esc(o.text).replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    const mk = o.mark ? `<span class="tl-mark">${esc(o.mark)}</span>` : "";
+    return `<div class="story-line${last}${o.mark?" marked":""}">${mk}<span class="tl-text">${body}</span></div>`;
   }).join("");
   stage.innerHTML = `
-    <div class="story">
+    <div class="story${item.side?" story-"+item.side:""}">
       <div class="story-num">${esc(item.marker)}</div>
       <div class="story-unit">${esc(item.markerLabel||"")}</div>
       <div class="story-rule"></div>
@@ -1057,7 +1278,7 @@ function renderStory(item){
 function ktStrip(terms){
   if(!terms || !terms.length) return "";
   const chips = terms.map(t=>`<details class="kt-term"><summary>${esc(t.term)}</summary><div class="kt-def">${esc(t.def)}</div></details>`).join("");
-  return `<div class="kt"><div class="kt-label">Key terms &middot; tap to open</div><div class="kt-row">${chips}</div></div>`;
+  return `<div class="kt"><div class="kt-label">Key terms &middot; open any of these</div><div class="kt-row">${chips}</div></div>`;
 }
 function rememberBox(text){
   if(!text) return "";
@@ -1085,7 +1306,7 @@ function renderCarousel(item){
       ${item.tag?`<div class="stage-tag">${esc(item.tag)}</div>`:""}
       ${item.heading?`<h2>${esc(item.heading)}</h2>`:""}
       <div class="car-wrap">
-        <div class="car-prompt" id="car-prompt">${allRead?`That is all ${cards.length}. Continue is unlocked.`:`Tap the arrows to read all ${cards.length}. Continue unlocks when you have.`}</div>
+        <div class="car-prompt" id="car-prompt">${allRead?`That is all ${cards.length}. Continue is unlocked.`:`Use the arrows to read all ${cards.length}. Continue unlocks when you have.`}</div>
         <div class="car-frame"><div class="car-card">${body}</div></div>
         <div class="car-nav">
           <div class="car-dots">${dots}</div>
@@ -1123,22 +1344,81 @@ function renderStat(item){
 // never has to tap Back to reread the extract.
 function sourcePeek(item){
   if(item.noSource) return "";
-  const s = item.sourceRef || LAST_SOURCE;
-  if(!s || !s.body) return "";
-  return `<details class="srcpeek"><summary>
+  if(item.sourceRef && item.sourceRef.body){
+    return peekShell([item.sourceRef]);
+  }
+  const seen = SOURCES_SEEN.filter(s => s && s.body);
+  if(!seen.length) return "";
+  return peekShell(seen);
+}
+
+function peekShell(list){
+  const many = list.length > 1;
+  const cue = many
+    ? `Open the ${list.length} sources again`
+    : `Open ${esc(/^The /.test(list[0].label) ? list[0].label.charAt(0).toLowerCase()+list[0].label.slice(1) : list[0].label)} again`;
+  // Preview the source, not its bibliography, and never cut a word in half.
+  const peekWords = (html)=>{
+    let s = String(html||"")
+      .replace(/<div class="(src-imprint|cable-head)"[\s\S]*?<\/div>/g," ")
+      .replace(/<[^>]*>/g," ")
+      .replace(/&nbsp;/g," ").replace(/&hellip;/g,"...")
+      .replace(/\s+/g," ").trim();
+    if(s.length<=84) return esc(s);
+    let cut = s.slice(0,84);
+    const sp = cut.lastIndexOf(" ");
+    if(sp>40) cut = cut.slice(0,sp);
+    return esc(cut) + "&hellip;";
+  };
+  const who = many
+    ? list.map(s=>esc(s.label)).join(" &middot; ")
+    : peekWords(list[0].body);
+  const tabs = many
+    ? `<div class="peek-tabs" role="tablist">${list.map((s,i)=>
+        `<button class="peek-tab${i===list.length-1?" on":""}" data-peek="${i}" role="tab">${esc(s.label)}</button>`).join("")}</div>`
+    : "";
+  const track = `<div class="peek-track" data-peek-track>${list.map(s=>
+      `<div class="peek-slide"><div class="peek-attr">${s.attr}</div>${s.body}</div>`).join("")}</div>`;
+  return `<details class="srcpeek${many?" multi":""}"><summary>
       <svg class="chev" width="11" height="13" viewBox="0 0 11 13" fill="none" aria-hidden="true"><path d="M2 1.5 L8.5 6.5 L2 11.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span class="peek-cue">Tap to read ${esc(s.label)} again<span class="peek-who">${esc(stripTags(s.attr)).slice(0,90)}</span></span>
-    </summary><div class="peek-body">${s.body}</div></details>`;
+      <span class="peek-cue">${cue}<span class="peek-who">${who}</span></span>
+    </summary><div class="peek-body">${tabs}${track}</div></details>`;
+}
+
+// Tabs scroll the track; swiping the track updates the tabs. Both work alone,
+// so a learner who never notices the tabs can still swipe, and the other way round.
+function bindPeek(){
+  stage.querySelectorAll(".srcpeek.multi").forEach(d=>{
+    const track = d.querySelector("[data-peek-track]");
+    const tabs  = Array.from(d.querySelectorAll(".peek-tab"));
+    if(!track || !tabs.length) return;
+    const go = i => track.scrollTo({ left: i * track.clientWidth, behavior: "smooth" });
+    tabs.forEach(t => t.addEventListener("click", () => go(parseInt(t.dataset.peek,10))));
+    let tick = null;
+    track.addEventListener("scroll", () => {
+      clearTimeout(tick);
+      tick = setTimeout(() => {
+        const i = Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+        tabs.forEach((t,n) => t.classList.toggle("on", n === i));
+      }, 60);
+    });
+    // open on the source the learner saw last, which is the one they were reading
+    d.addEventListener("toggle", () => {
+      if(d.open) requestAnimationFrame(() => { track.scrollLeft = (tabs.length-1) * track.clientWidth; });
+    });
+  });
 }
 function stripTags(h){ return String(h||"").replace(/<[^>]+>/g,""); }
 
 // ============ SOURCE ============
 // The most recent source rendered, so any later question can reopen it in place.
+let SOURCES_SEEN = [];
 let LAST_SOURCE = null;
 
 function renderSource(item){
   const s=item.source;
   LAST_SOURCE = { label: item.sourceLabel || item.tag || "the source", attr: s.attr, body: s.body };
+  if(!SOURCES_SEEN.some(x => x.label === LAST_SOURCE.label)) SOURCES_SEEN.push(LAST_SOURCE);
   stage.innerHTML = `
     <div class="card">
       ${item.tag?`<div class="stage-tag">${esc(item.tag)}</div>`:""}
@@ -1151,6 +1431,23 @@ function renderSource(item){
       ${ktStrip(item.terms)}
     </div>`;
   bindToggles();
+}
+
+
+// A mark allocation is part of the teaching, but the notation is never
+// explained anywhere. Gloss it once, on the first assessed question that
+// carries one, and pin it to that question so Back and forward show the
+// same screen twice.
+let _glossAt = null;
+function marksGloss(marks){
+  if(!marks || (_glossAt!==null && _glossAt!==state.idx)) return "";
+  const m = String(marks).match(/\((\d+)\s*x\s*(\d+)\)/);
+  if(!m) return "";
+  _glossAt = state.idx;
+  const pts = parseInt(m[1],10), each = parseInt(m[2],10);
+  const mk = each===1 ? "1 mark" : each+" marks";
+  const p = pts===1 ? `one point, worth ${mk}` : `${pts} separate points, each worth ${mk}`;
+  return `<div class="marks-gloss">That bracket is exam notation. It means the marker wants ${p}.</div>`;
 }
 
 // ============ QUESTION (mcq / order / sort) ============
@@ -1181,7 +1478,7 @@ function renderMCQ(item){
   });
   stage.innerHTML = `
     <div class="card">
-      <div class="q-meta">${chip}${item.marks?`<span class="marks">${esc(item.marks)}</span>`:""}</div>
+      <div class="q-meta">${chip}${item.marks?`<span class="marks">${esc(item.marks)}</span>`:""}</div>${marksGloss(item.marks)}
       ${sourcePeek(item)}
       <div class="q-text">${item.q}</div>
       <div class="options">${opts}</div>
@@ -1204,18 +1501,31 @@ function renderOrder(item){
   const placed = st.placed;                       // array of content indices in chosen order
   const remaining = item.items.map((_,i)=>i).filter(i=>!placed.includes(i));
   let placedHtml = placed.map((ci,pos)=>{
-    let cls="inter-item inter-placed";
-    if(answered){ cls = "inter-item "+(ci===item.answer[pos]?"ok":"no"); }
-    return `<button class="${cls}" data-placed="${ci}" ${answered?"disabled":""}><span class="rank">${pos+1}</span><span>${esc(item.items[ci])}</span></button>`;
+    let cls="inter-item inter-placed", mark="", should="";
+    if(answered){
+      const right = ci===item.answer[pos];
+      cls = "inter-item "+(right?"ok":"no");
+      mark = `<span class="inter-mark">${right?"&#10003;":"&#10007;"}</span>`;
+      if(!right) should = `<span class="inter-should">belongs at ${item.answer.indexOf(ci)+1}</span>`;
+    }
+    return `<button class="${cls}" data-placed="${ci}" ${answered?"disabled":""}><span class="rank">${pos+1}</span><span class="inter-body">${esc(item.items[ci])}${should}</span>${mark}</button>`;
   }).join("");
-  let poolHtml = remaining.map(ci=>`<button class="inter-item" data-pool="${ci}"><span class="rank">&bull;</span><span>${esc(item.items[ci])}</span></button>`).join("");
+  // The pool is shuffled once and remembered, so an order question can never
+  // present its events already close to sequence.
+  if(!st.pool){
+    const a=item.items.map((_,i)=>i);
+    for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+    st.pool=a;
+  }
+  const poolOrder = st.pool.filter(ci=>remaining.includes(ci));
+  let poolHtml = poolOrder.map(ci=>`<button class="inter-item" data-pool="${ci}"><span class="rank">&bull;</span><span>${esc(item.items[ci])}</span></button>`).join("");
   stage.innerHTML = `
     <div class="card">
-      <div class="q-meta"><span class="chip ${item.level?chipCls(item.level):"chip-instinct"}">${item.level||"Instinct"}</span>${item.marks?`<span class="marks">${esc(item.marks)}</span>`:""}</div>
+      <div class="q-meta"><span class="chip ${item.level?chipCls(item.level):"chip-instinct"}">${item.level||"Instinct"}</span>${item.marks?`<span class="marks">${esc(item.marks)}</span>`:""}</div>${marksGloss(item.marks)}
       ${sourcePeek(item)}
       <div class="q-text">${item.q}</div>
       <div class="inter">
-        <div class="inter-pool" id="placed">${placedHtml||`<div style="color:var(--fade);font-size:0.9rem;padding:0.4rem 0;">Tap an event below to start putting them in order.</div>`}</div>
+        <div class="inter-pool" id="placed">${placedHtml||`<div style="color:var(--fade);font-size:0.9rem;padding:0.4rem 0;">Choose an event below to start putting them in order.</div>`}</div>
         ${remaining.length?`<div style="height:1px;background:rgba(27,42,51,0.14);margin:0.9rem 0;"></div><div class="inter-pool" id="pool">${poolHtml}</div>`:""}
       </div>
       ${answered?`<div class="explanation"><div class="expl-label">Why</div><div class="expl-text">${resolveOpts(item.explanation,null)}</div></div>`:""}
@@ -1239,9 +1549,13 @@ function renderSort(item){
   const unplaced = item.items.map((_,i)=>i).filter(i=>!(i in col));
   const colCards = (which)=>item.items.map((it,ci)=>{
     if(col[ci]!==which) return "";
-    let cls="inter-item inter-placed";
-    if(answered) cls="inter-item "+(item.answer[ci]===which?"ok":"no");
-    return `<button class="${cls}" data-un="${ci}" ${answered?"disabled":""}><span>${esc(it)}</span></button>`;
+    let cls="inter-item inter-placed", mark="";
+    if(answered){
+      const right = item.answer[ci]===which;
+      cls="inter-item "+(right?"ok":"no");
+      mark = `<span class="inter-mark">${right?"&#10003;":"&#10007;"}</span>`;
+    }
+    return `<button class="${cls}" data-un="${ci}" ${answered?"disabled":""}><span class="inter-body">${esc(it)}</span>${mark}</button>`;
   }).join("");
   const pool = unplaced.map(ci=>`
     <div class="inter-item" style="flex-direction:column;align-items:stretch;cursor:default;">
@@ -1253,7 +1567,7 @@ function renderSort(item){
     </div>`).join("");
   stage.innerHTML = `
     <div class="card">
-      <div class="q-meta"><span class="chip ${item.level?chipCls(item.level):"chip-instinct"}">${item.level||"Instinct"}</span>${item.marks?`<span class="marks">${esc(item.marks)}</span>`:""}</div>
+      <div class="q-meta"><span class="chip ${item.level?chipCls(item.level):"chip-instinct"}">${item.level||"Instinct"}</span>${item.marks?`<span class="marks">${esc(item.marks)}</span>`:""}</div>${marksGloss(item.marks)}
       ${sourcePeek(item)}
       <div class="q-text">${item.q}</div>
       <div class="inter">
@@ -1330,6 +1644,7 @@ function render(){
     case "question": renderQuestion(item); break;
     default: renderContent(item); syncNav(false);
   }
+  bindPeek();   // the reopen strip's tabs and swipe rebind after every render
 }
 function syncNavCarousel(){
   nav.classList.remove("hidden");
@@ -1373,11 +1688,12 @@ function showResults(){
       <h1 class="results-title">${esc(RESULTS.title||"Where you stand")}</h1>
     </div>
     <div class="score-row">
-      <div class="score-block"><div class="score-num">${correct}<span class="score-den">/${total}</span></div><div class="score-label">Correct</div></div>
+      <div class="score-block"><div class="score-num">${correct}<span class="score-den">/${total}</span></div><div class="score-label">Questions right</div></div>
       <div class="score-block"><div class="score-num">${pct}<span class="score-den">%</span></div><div class="score-label">Accuracy</div></div>
       <div class="score-block"><div class="score-word">${band}</div><div class="score-label">Band</div></div>
     </div>
     <div class="grade-desc">${desc}</div>
+    <div class="score-note">This lesson counts questions. The marks printed on each question are what the same question is worth in the exam, which is why the two numbers differ.</div>
     <div class="breakdown"><div class="breakdown-label">By skill</div>${rows}</div>
     <div class="results-actions">
       <button class="btn-secondary" id="restart-btn">Restart lesson</button>
@@ -1413,10 +1729,17 @@ renderCover();
   /* What is stored is the mode the learner chose, "light" or "dark". Never a
      class name and never "native". For an essay unit set NATIVE "dark",
      FLIP "light", CLS "bright". Nothing else changes. */
-  var NATIVE = "light";   // the mode this unit is designed in
-  var FLIP   = "dark";    // the mode the toggle offers
+  var NATIVE = "light";   // the mode the stylesheet produces with no class on body
+  var FLIP   = "dark";    // the mode the class produces
   var CLS    = "dark";    // the class that produces FLIP in this unit
-  try{ if(localStorage.getItem("kula-mode")===FLIP){ document.body.classList.add(CLS); } }catch(e){}
+  /* The unit OPENS in dark. body carries the class in the markup rather than
+     having it added here, so there is no flash of the light ground before
+     this script runs at the foot of the document. All this block does is
+     honour a learner who has already chosen otherwise. */
+  var stored = null;
+  try{ stored = localStorage.getItem("kula-mode"); }catch(e){}
+  if(stored === NATIVE) document.body.classList.remove(CLS);
+  else if(stored === FLIP) document.body.classList.add(CLS);
   var SUN='<circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/>';
   var MOON='<path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z"/>';
   var b=document.getElementById("kula-mode-toggle");
