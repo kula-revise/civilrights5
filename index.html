@@ -1153,12 +1153,12 @@ const FLOW = [
   {
     "type": "content",
     "tag": "Before you go",
-    "html": "<h2>Two things to do</h2><p>Take Knowledge Check 2. It asks the same eighteen facts as the check you did before Lesson 1, approached from the other side, so it measures what stuck rather than what you recognised.</p><p>Then sit this run again with a clock. Twenty marks is about twenty-four minutes in the exam. Doing it once slowly teaches the method; doing it once fast tells you whether you have it.</p>"
+    "html": "<h2>Two things to do</h2><p>Take Knowledge Check 2. It asks the same eighteen facts as the check you did before Lesson 1. Each one comes at you from the other side. So it measures what stuck, not what you recognised.</p><p>Then sit this run again with a clock. Twenty marks is about twenty-four minutes in the exam. Doing it once slowly teaches the method; doing it once fast tells you whether you have it.</p>"
   },
   {
     "type": "content",
     "tag": "What this run leaves out",
-    "html": "<h2>Being straight with you about this run</h2><p>The full source question is fifty marks and this run is twenty. Two things were cut, and you should know what they were.</p><p>The photograph question and the comparison between two sources are both missing, because they depend on extracts and a newspaper front page that cannot be published outside an exam paper. Your comparison practice is in Lessons 2 and 4 instead, and your reliability practice is in Lesson 3.</p><p>This run is also shorter than it should be, for the same reason. Everything in it is real: the questions, the allocations and the official answers. What could not be reproduced was left out rather than invented.</p>"
+    "html": "<h2>Being straight with you about this run</h2><p>The full source question is fifty marks and this run is twenty. Two things were cut, and you should know what they were.</p><p>The photograph question and the comparison between two sources are both missing. They depend on extracts and a newspaper front page that cannot be published outside an exam paper. Your comparison practice is in Lessons 2 and 4 instead, and your reliability practice is in Lesson 3.</p><p>This run is also shorter than it should be, for the same reason. Everything in it is real: the questions, the allocations and the official answers. What could not be reproduced was left out rather than invented.</p>"
   },
   {
     "type": "content",
@@ -1706,7 +1706,7 @@ function showResults(){
   });
   /* The button at the end of the lesson is the thing that continues. It does
      not point at a control somewhere else on the page. */
-  document.getElementById("finish-btn").addEventListener("click",()=>{ KulaLMS.advance(); });
+  document.getElementById("finish-btn").onclick = ()=>{ KulaLMS.advance(); };
   KulaLMS.completed();
 }
 
@@ -1758,6 +1758,7 @@ renderCover();
     ic.innerHTML = offering==="light" ? SUN : MOON;
     b.setAttribute("aria-pressed", showing==="dark" ? "true" : "false");
     b.setAttribute("aria-label", "Switch to " + offering + " mode");
+    b.setAttribute("title", offering==="light" ? "Light mode" : "Dark mode");
   }
   b.addEventListener("click",function(){
     var flipped=document.body.classList.toggle(CLS);
