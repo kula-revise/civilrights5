@@ -50,14 +50,14 @@
     --ink-deep:   #12202a;              /* --ink one step darker, button hover */
     --a2-deep:    #164C3F;              /* --a2 one step darker, button hover */
     --ok-bg:      rgba(var(--a2-rgb),0.13);  /* a correct option, a placed item */
-    --no-bg:      rgba(140,74,47,0.13);      /* a wrong option, a misplaced item */
+    --no-bg:      rgba(var(--a1-rgb),0.13);   /* a wrong option, a misplaced item */
     /* Skill chips. a = the entry-level skill (Extract, Argue, Evidence, Recall).
        b = the middle skill (Interpret, Understand). c = unassessed instinct.
        The top skill (Evaluate, Weigh, Apply) sits on a solid accent ground. */
     --chip-a-bg: rgba(var(--a1-rgb),0.16);  --chip-a-fg: var(--a1);
-    --chip-b-bg: rgba(var(--a2-rgb),0.16);  --chip-b-fg: #9E3855;  /* one step darker than --a2: on its own tint the accent measured 4.17 */
+    --chip-b-bg: rgba(var(--a2-rgb),0.16);  --chip-b-fg: #063E88;  /* one step darker than --a2: on its own tint the accent measured 4.17 */
     --chip-c-bg: rgba(0,0,0,0.06);
-    --scrim:  rgba(27,42,51,0.5);       /* modal backdrop */
+    --scrim:  rgba(16,22,32,0.5);       /* modal backdrop */
     --inset:  rgba(255,255,255,0.4);    /* sort column well */
 
     /* Legacy aliases. Older skins and the quiz shell reference these. */
@@ -156,21 +156,21 @@
 
 :root {
   /* grounds and ink: warm concrete, not paper and not bone */
-  --sand:  #EDEAE4;   /* page background */
-  --paper: #FAF8F3;   /* cards */
-  --cut:   #E2DFD7;   /* insets, sources, carousels */
-  --ink:   #22262A;   /* body text, a green-black */
-  --clay:  #545B60;   /* stage tags, quiet labels */
+  --sand:  #E7ECF3;   /* page background */
+  --paper: #FFFFFF;   /* cards */
+  --cut:   #DBE2EC;   /* insets, sources, carousels */
+  --ink:   #101620;   /* body text */
+  --clay:  #4A535F;   /* stage tags, quiet labels */
   /* Muted text: captions, attributions, counters. The previous value measured 2.66
      against the --cut inset, which is the darkest ground it sits on. */
-  --fade:  #5E646A;   /* muted text, captions */
+  --fade:  #57616E;   /* muted text, captions */
   /* accents: interstate green for the settled line, signal amber for the contested one */
-  --a1: #2B3034;  --a1-rgb: 43,48,52;
-  --a2: #B23F60;  --a2-rgb: 178,63,96;
+  --a1: #B8002E;  --a1-rgb: 184,0,46;
+  --a2: #0854B4;  --a2-rgb: 8,84,180;
   /* The two hover steps are derived, not identity. Left in the engine block
      they kept the engine's bottle green against this skin's rose. */
-  --ink-deep: #171A1D;
-  --a2-deep:  #8B314B;
+  --ink-deep: #0A0E15;
+  --a2-deep:  #063E88;
   /* type: a grotesque carries the history, a serif is kept for documents only */
   --sans:  'Archivo', 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
   --serif: 'Source Serif 4', 'Charter', Georgia, serif;
@@ -182,7 +182,7 @@
 body {
   font-family: var(--sans) !important;
   background-image:
-    repeating-linear-gradient(0deg, transparent 0 46px, rgba(23,33,27,0.030) 46px 47px) !important;
+    repeating-linear-gradient(0deg, transparent 0 46px, rgba(16,22,32,0.030) 46px 47px) !important;
 }
 h1, h2, h3 { font-family: var(--sans) !important; letter-spacing: -0.012em !important; }
 
@@ -191,7 +191,7 @@ h1, h2, h3 { font-family: var(--sans) !important; letter-spacing: -0.012em !impo
    edge, green with a dashed centre line. That is the strand's signature. */
 .card, .source, .stat-wrap, .carousel, .kt {
   border-radius: 3px !important;
-  border: 1px solid rgba(43,48,52,0.16) !important;
+  border: 1px solid rgba(184,0,46,0.16) !important;
   box-shadow: none !important;
 }
 .card {
@@ -199,7 +199,7 @@ h1, h2, h3 { font-family: var(--sans) !important; letter-spacing: -0.012em !impo
   background-image:
     repeating-linear-gradient(180deg,
       transparent 0 14px,
-      rgba(251,250,246,0.92) 14px 26px) !important;
+      rgba(255,255,255,0.92) 14px 26px) !important;
   background-size: 3px 100% !important;
   background-position: -5px 0 !important;
   background-repeat: no-repeat !important;
@@ -216,7 +216,7 @@ h1, h2, h3 { font-family: var(--sans) !important; letter-spacing: -0.012em !impo
 }
 .stage-tag, .kt-label, .expl-label, .pop-label {
   background: var(--a1) !important;
-  color: #F4F6F1 !important;
+  color: #FFFFFF !important;
   border-radius: 3px !important;
   padding: 0.24rem 0.6rem !important;
   display: inline-block;
@@ -233,7 +233,7 @@ h1, h2, h3 { font-family: var(--sans) !important; letter-spacing: -0.012em !impo
    handed to the learner rather than as more of the lesson. */
 .source {
   background: var(--cut) !important;
-  border: 1.5px solid rgba(23,33,27,0.30) !important;
+  border: 1.5px solid rgba(16,22,32,0.30) !important;
   border-left-width: 1.5px !important;
   border-radius: 0 !important;
   padding: 1.2rem 1.25rem !important;
@@ -246,7 +246,7 @@ h1, h2, h3 { font-family: var(--sans) !important; letter-spacing: -0.012em !impo
   letter-spacing: 0.01em !important;
   text-transform: none !important;
   color: var(--a1) !important;
-  background: rgba(43,48,52,0.09);
+  background: rgba(184,0,46,0.09);
   border-radius: 3px;
   padding: 0.5rem 0.65rem;
   margin-bottom: 0.95rem;
@@ -260,7 +260,7 @@ h1, h2, h3 { font-family: var(--sans) !important; letter-spacing: -0.012em !impo
   border-radius: 1px !important;
   background-image:
     repeating-linear-gradient(90deg,
-      var(--a1) 0 16px, rgba(239,237,231,0.95) 16px 26px) !important;
+      var(--a1) 0 16px, rgba(231,236,243,0.95) 16px 26px) !important;
   background-color: var(--a1) !important;
 }
 .cover-line { font-style: normal !important; color: var(--clay) !important; }
@@ -271,11 +271,11 @@ h1, h2, h3 { font-family: var(--sans) !important; letter-spacing: -0.012em !impo
 /* Begin button: a solid enamel plate, so the cover reads as signage. */
 .btn-begin {
   background: var(--a1) !important;
-  color: #F4F6F1 !important;
+  color: #FFFFFF !important;
   border: 2px solid var(--a1) !important;
   border-radius: 3px !important;
 }
-.btn-begin:hover { background: #164A2D !important; border-color: #164A2D !important; }
+.btn-begin:hover { background: #8A0022 !important; border-color: #8A0022 !important; }
 
 /* Stat cards read as mileposts: the figure large, the label beneath it. */
 .stat-num { color: var(--a1) !important; font-family: var(--sans) !important; font-weight: 700 !important; }
@@ -302,42 +302,42 @@ h1, h2, h3 { font-family: var(--sans) !important; letter-spacing: -0.012em !impo
    sunlight, so the light ground above is the default and this is the inversion.
    Concrete goes to asphalt and the enamel colours brighten rather than dim. */
 body.dark {
-  --sand:  #17191B;
-  --paper: #212528;
-  --cut:   #292E31;
-  --ink:   #EAEAE6;
-  --clay:  #A3A9AE;
-  --fade:  #91979C;
-  --a1: #B9C0C6;  --a1-rgb: 185,192,198;
-  --a2: #E5849F;  --a2-rgb: 229,132,159;
+  --sand:  #080C16;
+  --paper: #121926;
+  --cut:   #1B2433;
+  --ink:   #EAF0F9;
+  --clay:  #97A3B4;
+  --fade:  #8A97A8;
+  --a1: #FF4D6D;  --a1-rgb: 255,77,109;
+  --a2: #58B6FF;  --a2-rgb: 88,182,255;
   /* On a dark ground a hover step goes lighter, not deeper. */
   --ink-deep: #FFFFFF;
-  --a2-deep:  #F0A6BA;
+  --a2-deep:  #8ACCFF;
 }
 body.dark { background-image:
-  repeating-linear-gradient(0deg, transparent 0 46px, rgba(233,237,231,0.038) 46px 47px) !important; }
+  repeating-linear-gradient(0deg, transparent 0 46px, rgba(234,240,249,0.038) 46px 47px) !important; }
 body.dark .card, body.dark .source, body.dark .stat-wrap,
-body.dark .carousel, body.dark .kt { border-color: rgba(185,192,198,0.26) !important; }
+body.dark .carousel, body.dark .kt { border-color: rgba(255,77,109,0.26) !important; }
 body.dark .card { border-left-color: var(--a1) !important; background-image: none !important; }
-body.dark .source { border-color: rgba(233,237,231,0.30) !important; }
+body.dark .source { border-color: rgba(234,240,249,0.30) !important; }
 body.dark .stage-tag, body.dark .kt-label,
-body.dark .expl-label, body.dark .pop-label { background: rgba(185,192,198,0.22) !important; color: #C6E6D2 !important; }
-body.dark .source-attr { background: rgba(185,192,198,0.16) !important; color: #C6E6D2 !important; }
-body.dark .btn-begin { background: var(--a1) !important; border-color: var(--a1) !important; color: #0E1512 !important; }
-body.dark .btn-begin:hover { background: #62B37D !important; border-color: #62B37D !important; }
-body.dark .mode-toggle { background: var(--paper); border-color: rgba(233,237,231,0.24); }
+body.dark .expl-label, body.dark .pop-label { background: rgba(255,77,109,0.22) !important; color: #FFC9D3 !important; }
+body.dark .source-attr { background: rgba(255,77,109,0.16) !important; color: #FFC9D3 !important; }
+body.dark .btn-begin { background: var(--a1) !important; border-color: var(--a1) !important; color: #080C16 !important; }
+body.dark .btn-begin:hover { background: #FF7A93 !important; border-color: #FF7A93 !important; }
+body.dark .mode-toggle { background: var(--paper); border-color: rgba(234,240,249,0.24); }
 body.dark .rule, body.dark .cover-rule, body.dark .flourish {
   background-image: repeating-linear-gradient(90deg,
-    var(--a1) 0 16px, rgba(22,25,26,0.95) 16px 26px) !important;
+    var(--a1) 0 16px, rgba(18,25,38,0.95) 16px 26px) !important;
 }
 
 /* Tier and level chips carry light grounds in the base engine and glare when
    the ground inverts, so each gets a dark ground of its own. */
-body.dark .chip { background: rgba(185,192,198,0.16) !important; color: #C6E6D2 !important; }
-body.dark .chip-recall,     body.dark .chip-extract   { background: rgba(229,132,159,0.20) !important; color: #F5CFA4 !important; }
-body.dark .chip-understand, body.dark .chip-interpret { background: rgba(185,192,198,0.20) !important; color: #BCE2CA !important; }
-body.dark .chip-apply,      body.dark .chip-evaluate  { background: rgba(233,237,231,0.16) !important; color: #EAEAE6 !important; }
-body.dark .option-btn, body.dark .opt-btn { border-color: rgba(233,237,231,0.20) !important; }
+body.dark .chip { background: rgba(255,77,109,0.16) !important; color: #FFC9D3 !important; }
+body.dark .chip-recall,     body.dark .chip-extract   { background: rgba(88,182,255,0.20) !important; color: #FFC9D3 !important; }
+body.dark .chip-understand, body.dark .chip-interpret { background: rgba(255,77,109,0.20) !important; color: #BFDFFF !important; }
+body.dark .chip-apply,      body.dark .chip-evaluate  { background: rgba(234,240,249,0.16) !important; color: #EAF0F9 !important; }
+body.dark .option-btn, body.dark .opt-btn { border-color: rgba(234,240,249,0.20) !important; }
 
 
 /* ---- DARK MODE STATE COLOURS -----------------------------------------------
@@ -345,60 +345,60 @@ body.dark .option-btn, body.dark .opt-btn { border-color: rgba(233,237,231,0.20)
    Left alone they produce pale text on pale grounds. */
 
 body.dark .option-btn.correct {
-  background: rgba(185,192,198,0.18) !important;
-  border-color: #B9C0C6 !important;
+  background: rgba(255,77,109,0.18) !important;
+  border-color: #FF4D6D !important;
   color: var(--ink) !important;
 }
 body.dark .option-btn.wrong {
-  background: rgba(229,132,159,0.16) !important;
-  border-color: #E5849F !important;
+  background: rgba(88,182,255,0.16) !important;
+  border-color: #58B6FF !important;
   color: var(--ink) !important;
 }
 body.dark .option-btn.correct .opt-text,
 body.dark .option-btn.wrong   .opt-text { color: var(--ink) !important; }
-body.dark .option-btn.correct .opt-letter { color: #7FC79A !important; }
-body.dark .option-btn.wrong   .opt-letter { color: #F0B67E !important; }
+body.dark .option-btn.correct .opt-letter { color: #9CCDFF !important; }
+body.dark .option-btn.wrong   .opt-letter { color: #FF9DB0 !important; }
 body.dark .opt-mark { color: var(--ink) !important; }
 
 body.dark .primary-btn {
   background: var(--cut) !important;
-  border: 1px solid rgba(185,192,198,0.40) !important;
+  border: 1px solid rgba(255,77,109,0.40) !important;
   color: var(--ink) !important;
 }
-body.dark .primary-btn:hover { background: #2E3733 !important; }
+body.dark .primary-btn:hover { background: #1F2A3A !important; }
 body.dark .primary-btn .btn-title { color: var(--ink) !important; }
 body.dark .primary-btn .btn-sub,
 body.dark .primary-btn .btn-arrow { color: var(--clay) !important; opacity: 1 !important; }
 
-body.dark .section-btn { border-color: rgba(233,237,231,0.18) !important; color: var(--ink) !important; }
+body.dark .section-btn { border-color: rgba(234,240,249,0.18) !important; color: var(--ink) !important; }
 body.dark .section-btn:hover { background: var(--cut) !important; border-color: var(--a1) !important; }
-body.dark .primary-btn-small { background: var(--a1) !important; color: #0E1512 !important; }
-body.dark .primary-btn-small:hover:not(:disabled) { background: #62B37D !important; }
-body.dark .secondary-btn { border-color: rgba(233,237,231,0.30) !important; color: var(--ink) !important; }
+body.dark .primary-btn-small { background: var(--a1) !important; color: #080C16 !important; }
+body.dark .primary-btn-small:hover:not(:disabled) { background: #FF7A93 !important; }
+body.dark .secondary-btn { border-color: rgba(234,240,249,0.30) !important; color: var(--ink) !important; }
 body.dark .secondary-btn:hover:not(:disabled) { background: var(--cut) !important; }
 
-body.dark .explanation { background: var(--cut) !important; border-color: rgba(185,192,198,0.28) !important; }
+body.dark .explanation { background: var(--cut) !important; border-color: rgba(255,77,109,0.28) !important; }
 body.dark .expl-text { color: var(--ink) !important; }
 body.dark .quiz-foot a, body.dark .quiz-foot { color: var(--clay) !important; }
 
 /* The lesson engine uses .option where the quiz uses .option-btn, so the state
    overrides have to name both or half the product stays broken. */
-body.dark .option { background: var(--cut) !important; border-color: rgba(233,237,231,0.18) !important; color: var(--ink) !important; }
-body.dark .option.selected { background: rgba(229,132,159,0.14) !important; border-color: #E5849F !important; }
+body.dark .option { background: var(--cut) !important; border-color: rgba(234,240,249,0.18) !important; color: var(--ink) !important; }
+body.dark .option.selected { background: rgba(88,182,255,0.14) !important; border-color: #58B6FF !important; }
 body.dark .option.correct {
-  background: rgba(185,192,198,0.18) !important;
-  border-color: #B9C0C6 !important;
+  background: rgba(255,77,109,0.18) !important;
+  border-color: #FF4D6D !important;
   color: var(--ink) !important;
 }
 body.dark .option.wrong {
-  background: rgba(229,132,159,0.16) !important;
-  border-color: #E5849F !important;
+  background: rgba(88,182,255,0.16) !important;
+  border-color: #58B6FF !important;
   color: var(--ink) !important;
 }
 body.dark .option.correct .opt-text,
 body.dark .option.wrong   .opt-text { color: var(--ink) !important; }
-body.dark .option.correct .opt-letter { color: #7FC79A !important; }
-body.dark .option.wrong   .opt-letter { color: #F0B67E !important; }
+body.dark .option.correct .opt-letter { color: #9CCDFF !important; }
+body.dark .option.wrong   .opt-letter { color: #FF9DB0 !important; }
 
 
 /* The toggle is fixed bottom right and lands on the Continue button on a short
@@ -418,12 +418,12 @@ body { padding-bottom: 4.5rem !important; }
   margin-left: auto; margin-right: auto;
   font-size: 0.84rem !important;
   color: var(--clay) !important;
-  border-top: 1px solid rgba(43,48,52,0.20);
+  border-top: 1px solid rgba(184,0,46,0.20);
   padding-top: 0.6rem;
 }
-.figure img { border: 1px solid rgba(43,48,52,0.28) !important; border-radius: 2px !important; }
-body.dark .figure img { border-color: rgba(185,192,198,0.30) !important; }
-body.dark .figure figcaption { border-top-color: rgba(185,192,198,0.24); }
+.figure img { border: 1px solid rgba(184,0,46,0.28) !important; border-radius: 2px !important; }
+body.dark .figure img { border-color: rgba(255,77,109,0.30) !important; }
+body.dark .figure figcaption { border-top-color: rgba(255,77,109,0.24); }
 body.dark .figure img { filter: brightness(0.9) contrast(1.02); }
 
 
@@ -548,7 +548,7 @@ body.dark .figure img { filter: brightness(0.9) contrast(1.02); }
   .source-body { font-size: 1.02rem; line-height: 1.74; }
   /* --a2 measured 4.18 on the light source ground, so light takes one step darker.
      Dark keeps --a2, which is already a light rose and reads correctly there. */
-  .source-body em { color: #9E3855; font-style: italic; }
+  .source-body em { color: #063E88; font-style: italic; }
   body.dark .source-body em { color: var(--a2); }
   .toggle-btn { font-family: var(--sans); background: transparent; border: none; color: var(--a1); cursor: pointer; font-size: 0.88rem; font-weight: 600; text-decoration: underline; padding: 0.7rem 0 0; }
   .toggle-body { display: none; margin-top: 0.7rem; padding-top: 0.7rem; border-top: 1px dashed var(--hair-strong); font-size: 0.94rem; color: var(--muted); line-height: 1.66; }
@@ -676,8 +676,8 @@ body.dark .figure img { filter: brightness(0.9) contrast(1.02); }
    Colour is never the only signal: the tick and the cross carry
    the state too.
    ============================================================ */
-:root { --ok: #2A6335; --ok-rgb: 42,99,53; --on-ok: #FAF8F3; }
-body.dark { --ok: #93D98A; --ok-rgb: 147,217,138; --on-ok: #17191B; }
+:root { --ok: #2A6335; --ok-rgb: 42,99,53; --on-ok: #FFFFFF; }
+body.dark { --ok: #93D98A; --ok-rgb: 147,217,138; --on-ok: #080C16; }
 
 .option.correct, .option-btn.correct,
 body.dark .option.correct, body.dark .option-btn.correct {
@@ -1526,7 +1526,7 @@ function renderOrder(item){
       <div class="q-text">${item.q}</div>
       <div class="inter">
         <div class="inter-pool" id="placed">${placedHtml||`<div style="color:var(--fade);font-size:0.9rem;padding:0.4rem 0;">Choose an event below to start putting them in order.</div>`}</div>
-        ${remaining.length?`<div style="height:1px;background:rgba(27,42,51,0.14);margin:0.9rem 0;"></div><div class="inter-pool" id="pool">${poolHtml}</div>`:""}
+        ${remaining.length?`<div style="height:1px;background:rgba(16,22,32,0.14);margin:0.9rem 0;"></div><div class="inter-pool" id="pool">${poolHtml}</div>`:""}
       </div>
       ${answered?`<div class="explanation"><div class="expl-label">Why</div><div class="expl-text">${resolveOpts(item.explanation,null)}</div></div>`:""}
     </div>`;
@@ -1575,7 +1575,7 @@ function renderSort(item){
           <div class="sort-col"><h4>${esc(item.cols[0])}</h4>${colCards(0)}</div>
           <div class="sort-col"><h4>${esc(item.cols[1])}</h4>${colCards(1)}</div>
         </div>
-        ${unplaced.length?`<div style="height:1px;background:rgba(27,42,51,0.14);margin:0.9rem 0;"></div><div class="inter-pool">${pool}</div>`:""}
+        ${unplaced.length?`<div style="height:1px;background:rgba(16,22,32,0.14);margin:0.9rem 0;"></div><div class="inter-pool">${pool}</div>`:""}
       </div>
       ${answered?`<div class="explanation"><div class="expl-label">Why</div><div class="expl-text">${resolveOpts(item.explanation,null)}</div></div>`:""}
     </div>`;
